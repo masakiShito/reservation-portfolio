@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "reservation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "reservations_id": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "reservation"
+    },
+    "event_schedules": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event-schedule.event-schedule",
+      "mappedBy": "reservation"
+    },
+    "reservation_status": {
+      "type": "string",
+      "required": true,
+      "maxLength": 20
+    },
+    "reserved_at": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}
