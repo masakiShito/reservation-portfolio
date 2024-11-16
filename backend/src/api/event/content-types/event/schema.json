@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event",
     "pluralName": "events",
-    "displayName": "event"
+    "displayName": "event",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -29,6 +30,12 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::event-schedule.event-schedule",
+      "inversedBy": "events"
+    },
+    "categorie": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::categorie.categorie",
       "inversedBy": "events"
     }
   }

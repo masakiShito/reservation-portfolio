@@ -23,6 +23,12 @@
     },
     "description": {
       "type": "blocks"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "mappedBy": "categorie"
     }
   }
 }

@@ -1,1 +1,8 @@
-{}
+{
+  "dependencies": {
+    "next-auth": "^4.24.10"
+  },
+  "resolutions": {
+    "cookie": "1.0.1"
+  }
+}
