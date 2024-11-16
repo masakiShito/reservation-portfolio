@@ -155,7 +155,7 @@ model admin_users_roles_lnk {
 }
 
 model categories {
-  id                                                Int                  @id @default(autoincrement())
+  id                                                Int                    @id @default(autoincrement())
   document_id                                       String?
   categorie_id                                      BigInt?
   name                                              String?
@@ -166,8 +166,9 @@ model categories {
   created_by_id                                     Int?
   updated_by_id                                     Int?
   locale                                            String?
-  admin_users_categories_updated_by_idToadmin_users admin_users?         @relation("categories_updated_by_idToadmin_users", fields: [updated_by_id], references: [id], onUpdate: NoAction)
-  admin_users_categories_created_by_idToadmin_users admin_users?         @relation("categories_created_by_idToadmin_users", fields: [created_by_id], references: [id], onUpdate: NoAction)
+  admin_users_categories_updated_by_idToadmin_users admin_users?           @relation("categories_updated_by_idToadmin_users", fields: [updated_by_id], references: [id], onUpdate: NoAction)
+  admin_users_categories_created_by_idToadmin_users admin_users?           @relation("categories_created_by_idToadmin_users", fields: [created_by_id], references: [id], onUpdate: NoAction)
+  events_categorie_lnk                              events_categorie_lnk[]
 
   @@index([updated_by_id], map: "categories_updated_by_id_fk")
   @@index([created_by_id], map: "categories_created_by_id_fk")
@@ -225,6 +226,7 @@ model events {
   locale                                        String?
   admin_users_events_updated_by_idToadmin_users admin_users?                @relation("events_updated_by_idToadmin_users", fields: [updated_by_id], references: [id], onUpdate: NoAction)
   admin_users_events_created_by_idToadmin_users admin_users?                @relation("events_created_by_idToadmin_users", fields: [created_by_id], references: [id], onUpdate: NoAction)
+  events_categorie_lnk                          events_categorie_lnk[]
   events_event_schedule_lnk                     events_event_schedule_lnk[]
 
   @@index([updated_by_id], map: "events_updated_by_id_fk")
@@ -809,4 +811,18 @@ model upload_folders_parent_lnk {
   @@index([folder_ord], map: "upload_folders_parent_lnk_oifk")
   @@index([inv_folder_id], map: "upload_folders_parent_lnk_ifk")
   @@index([folder_id], map: "upload_folders_parent_lnk_fk")
+}
+
+model events_categorie_lnk {
+  id           Int         @id @default(autoincrement())
+  event_id     Int?
+  categorie_id Int?
+  event_ord    Float?
+  categories   categories? @relation(fields: [categorie_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  events       events?     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([event_id, categorie_id], map: "events_categorie_lnk_uq")
+  @@index([event_ord], map: "events_categorie_lnk_oifk")
+  @@index([categorie_id], map: "events_categorie_lnk_ifk")
+  @@index([event_id], map: "events_categorie_lnk_fk")
 }

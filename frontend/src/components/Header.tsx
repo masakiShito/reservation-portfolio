@@ -10,7 +10,7 @@ export function Header() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const navigation = [
-    { name: 'ダッシュボード', href: '/', icon: Calendar },
+    { name: 'ダッシュボード', href: '/dashboard', icon: Calendar },
     { name: '予約一覧', href: '/reservations', icon: Calendar },
     { name: 'イベント', href: '/events', icon: Calendar },
   ];
