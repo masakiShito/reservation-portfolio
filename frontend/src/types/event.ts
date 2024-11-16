@@ -20,9 +20,22 @@ export type Event = {
   document_id: string | null;
   event_id: number | null;
   description: string;
-  events_event_schedule_lnk: EventScheduleLink[];
+  categories: Category[];
   event_schedules: EventSchedule[];
-  events_event_category_lnk: EventCategoryLink[];
+  events_categorie_lnk: {
+    categories: {
+      id: number;
+      name: string | null;
+    } | null;
+  }[];
+  events_event_schedule_lnk: {
+    event_schedules: {
+      id: number;
+      start_time: Date | null;
+      end_time: Date | null;
+      capacity: number;
+    } | null;
+  }[];
 };
 
 export type PaginationType = {

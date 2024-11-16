@@ -18,17 +18,19 @@ type ResponseData = {
   error: string;
 };
 
-// BigIntを通常の数値に変換する関数
-const serialize = (obj: any): any => {
-  if (obj == null) return obj; // null または undefined の場合
-  if (typeof obj === 'bigint') return Number(obj); // BigIntを数値に変換
-  if (Array.isArray(obj)) return obj.map(serialize); // 配列の場合、各要素をシリアライズ
+const serialize = <T>(obj: T): T => {
+  if (obj == null) return obj;
+  if (obj instanceof Date) return obj.toISOString() as T;
+  if (Array.isArray(obj)) {
+    return obj.map(item => serialize(item)) as T;
+  }
   if (typeof obj === 'object') {
     return Object.fromEntries(
-      Object.entries(obj).map(([key, value]) => [key, serialize(value)])
-    );
+      Object.entries(obj as Record<string, unknown>)
+        .map(([key, value]) => [key, serialize(value)])
+    ) as T;
   }
-  return obj; // その他の場合そのまま返す
+  return obj;
 };
 
 export default async function handler(
@@ -124,16 +126,24 @@ export default async function handler(
     console.log('Total count:', Number(total));
 
     const serializedEvents = serialize(events.map(event => ({
-      ...event,
+      id: event.id,
+      name: event.name,
+      document_id: event.document_id,
+      event_id: event.event_id,
       description: '',
+      categories: event.events_categorie_lnk
+        .map(link => link.categories)
+        .filter((category): category is NonNullable<typeof category> => category !== null),
       event_schedules: event.events_event_schedule_lnk
-        .filter(link => link.event_schedules !== null)
         .map(link => ({
-          ...link.event_schedules,
-          capacity: link.event_schedules ? Number(link.event_schedules.capacity || 0) : 0,
+          id: link.event_schedules?.id ?? 0,
+          start_time: link.event_schedules?.start_time ?? null,
+          end_time: link.event_schedules?.end_time ?? null,
+          capacity: Number(link.event_schedules?.capacity || 0),
         })),
-      categories: event.events_categorie_lnk?.map(link => link.categories) || [],
-    })));
+      events_categorie_lnk: event.events_categorie_lnk,
+      events_event_schedule_lnk: event.events_event_schedule_lnk
+    }))) as Event[];
 
     return res.status(200).json({
       events: serializedEvents,

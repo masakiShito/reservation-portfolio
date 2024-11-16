@@ -157,7 +157,7 @@ model admin_users_roles_lnk {
 model categories {
   id                                                Int                    @id @default(autoincrement())
   document_id                                       String?
-  categorie_id                                      BigInt?
+  categorie_id                                      Int?
   name                                              String?
   description                                       Unsupported("json")?
   created_at                                        DateTime?
@@ -178,10 +178,10 @@ model categories {
 model event_schedules {
   id                                                     Int                               @id @default(autoincrement())
   document_id                                            String?
-  event_schedules_id                                     BigInt?
+  event_schedules_id                                     Int?
   start_time                                             DateTime?
   end_time                                               DateTime?
-  capacity                                               BigInt?
+  capacity                                               Int?
   created_at                                             DateTime?
   updated_at                                             DateTime?
   published_at                                           DateTime?
@@ -215,7 +215,7 @@ model event_schedules_reservation_lnk {
 model events {
   id                                            Int                         @id @default(autoincrement())
   document_id                                   String?
-  event_id                                      BigInt?
+  event_id                                      Int?
   name                                          String?
   description                                   Unsupported("json")?
   created_at                                    DateTime?
@@ -338,7 +338,7 @@ model i18n_locale {
 model reservations {
   id                                                  Int                               @id @default(autoincrement())
   document_id                                         String?
-  reservations_id                                     BigInt?
+  reservations_id                                     Int?
   reservation_status                                  String?
   reserved_at                                         DateTime?
   created_at                                          DateTime?

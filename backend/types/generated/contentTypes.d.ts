@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiCategorieCategorie extends Struct.CollectionTypeSchema {
   collectionName: 'categories';
   info: {
+    description: '';
     displayName: 'categorie';
     pluralName: 'categories';
     singularName: 'categorie';
@@ -380,7 +381,7 @@ export interface ApiCategorieCategorie extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    categorie_id: Schema.Attribute.BigInteger &
+    categorie_id: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
@@ -410,6 +411,7 @@ export interface ApiEventScheduleEventSchedule
   extends Struct.CollectionTypeSchema {
   collectionName: 'event_schedules';
   info: {
+    description: '';
     displayName: 'event_schedule';
     pluralName: 'event-schedules';
     singularName: 'event-schedule';
@@ -418,12 +420,12 @@ export interface ApiEventScheduleEventSchedule
     draftAndPublish: true;
   };
   attributes: {
-    capacity: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    capacity: Schema.Attribute.Integer & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     end_time: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    event_schedules_id: Schema.Attribute.BigInteger &
+    event_schedules_id: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
@@ -465,7 +467,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Blocks;
-    event_id: Schema.Attribute.BigInteger &
+    event_id: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     event_schedule: Schema.Attribute.Relation<
@@ -490,6 +492,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
 export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
   collectionName: 'reservations';
   info: {
+    description: '';
     displayName: 'reservation';
     pluralName: 'reservations';
     singularName: 'reservation';
@@ -517,7 +520,7 @@ export interface ApiReservationReservation extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 20;
       }>;
-    reservations_id: Schema.Attribute.BigInteger &
+    reservations_id: Schema.Attribute.Integer &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     reserved_at: Schema.Attribute.DateTime & Schema.Attribute.Required;

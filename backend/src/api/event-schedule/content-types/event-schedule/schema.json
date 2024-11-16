@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event-schedule",
     "pluralName": "event-schedules",
-    "displayName": "event_schedule"
+    "displayName": "event_schedule",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,7 +13,7 @@
   "pluginOptions": {},
   "attributes": {
     "event_schedules_id": {
-      "type": "biginteger",
+      "type": "integer",
       "required": true,
       "unique": true
     },
@@ -31,7 +32,7 @@
       "required": true
     },
     "capacity": {
-      "type": "biginteger",
+      "type": "integer",
       "required": true
     },
     "reservation": {

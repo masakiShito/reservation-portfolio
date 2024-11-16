@@ -13,7 +13,7 @@
   "pluginOptions": {},
   "attributes": {
     "event_id": {
-      "type": "biginteger",
+      "type": "integer",
       "required": true,
       "unique": true
     },
