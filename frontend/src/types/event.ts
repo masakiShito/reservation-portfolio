@@ -61,3 +61,8 @@ export type Category = {
 export type CategoryResponse = {
   categories: Category[];
 };
+
+export interface ReservationRequest {
+  eventId: number;
+  scheduleId: number;
+}
